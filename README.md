@@ -316,17 +316,13 @@ sudo -u tiller XDG_RUNTIME_DIR=/run/user/1000 systemctl --user status pipewire-p
 
 ### 6.2 Virtual sink for Sunshine to capture (no physical sound card)
 
-`~tiller/.config/pipewire/pipewire.conf.d/10-virtual-sink.conf`:
+`~tiller/.config/pipewire/pipewire-pulse.conf.d/10-virtual-sink.conf`:
 
 ```
-context.modules = [
-  { name = libpipewire-module-null-sink
-    args = {
-      node.name        = "virtual_speaker"
-      node.description = "Virtual Speaker"
-      media.class      = "Audio/Sink"
-      audio.position   = [ FL FR ]
-    }
+pulse.cmd = [
+  {
+    cmd = "load-module"
+    args = "module-null-sink sink_name=virtual_speaker sink_properties=device.description=Virtual Speaker"
   }
 ]
 ```
